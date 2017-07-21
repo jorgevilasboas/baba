@@ -1,0 +1,55 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">        
+        <div class="col-md-12">
+            <div class="thumbnail">
+                <img class="img-responsive" height="200" src="<%= baba.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">R$ 15,00/Diária</h4>
+                    <h4><a><%=baba.name%></a></h4>
+                    <p>Número de Jogadores: <%= baba.num_players %></p>
+                    <p>Número de Jogadores por time:  <%= baba.num_players_team %></p>
+                    <p>
+                        <em>Criado por <%= baba.author.username %></em>
+                    </p>
+                    <% if(currentUser && baba.author.id.equals(currentUser._id)){ %>
+                        <a class="btn btn-xs btn-success" href="/babas/<%= baba._id %>/edit">Gerenciar</a>
+                        <a class="btn btn-xs btn-warning" href="/babas/<%= baba._id %>/edit">Edit</a>
+                        <form id="delete-form" action="/babas/<%= baba._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% }%>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/babas/<%= baba._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share">Share via Whatsapp</a>
+                <hr>
+
+                <% baba.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <span class="pull-right">10 days ago</span>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/babas/<%=baba._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/babas/<%=baba._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

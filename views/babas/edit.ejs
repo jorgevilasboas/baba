@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Edit <%= baba.name %></h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/babas/<%= baba._id %>?_method=PUT" method="POST">
+                <div class="form-group">
+                    <label for="baba[name]">Nome:</label>
+                    <input class="form-control" type="text" name="baba[name]" value="<%= baba.name %>">
+                </div>
+                <div class="form-group">
+                    <label for="baba[image]">Imagem:</label>
+                    <input class="form-control" type="text" name="baba[image]" value="<%= baba.image %>">
+                </div>
+                <div class="form-group">
+                    <label for="baba[description]">Descrição:</label>
+                    <input class="form-control" type="text" name="baba[description]" value="<%= baba.description %>">
+                </div>
+                <div class="form-group">
+                    <label for="baba[num_players]">Número de Jogadores:</label>
+                    <input class="form-control" type="text" name="baba[num_players]" value="<%= baba.num_players %>">
+                </div>
+                <div class="form-group">
+                    <label for="baba[num_players_team]">Número de Jogadores por time:</label>
+                    <input class="form-control" type="text" name="baba[num_players_team]" value="<%= baba.num_players_team %>">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Alterar</button>
+                </div>
+            </form>
+            <a href="/babas">Voltar</a>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
+
