@@ -47,6 +47,27 @@ middlewareObj.checkCommentOwnership = function(req, res, next) {
     }
 }
 
+middlewareObj.checkPlayerOwnership = function(req, res, next) {
+ if(req.isAuthenticated()){
+        Player.findById(req.params.player_id, function(err, foundPlayer){
+           if(err){
+               res.redirect("back");
+           }  else {
+               // does user own the comment?
+            if(foundPlayer.author.id.equals(req.user._id)) {
+                next();
+            } else {
+                req.flash("error", "Você não tem permissão para realizar essa operação.");
+                res.redirect("back");
+            }
+           }
+        });
+    } else {
+        req.flash("error", "Você precisa estar logado!");
+        res.redirect("back");
+    }
+}
+
 middlewareObj.isLoggedIn = function(req, res, next){
     if(req.isAuthenticated()){
         return next();

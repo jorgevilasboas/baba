@@ -49,25 +49,26 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 // SHOW - shows more info about one baba
 router.get("/:id", function(req, res){
     //find the baba with provided ID
+    
     Baba.findById(req.params.id).populate("comments").exec(function(err, foundBaba){
         if(err){
             console.log(err);
-        } else {
+        } else {                        
             console.log(foundBaba)
             //render show template with that baba
-            res.render("babas/show", {baba: foundBaba});
+            res.render("babas/show", {baba: foundBaba});            
         }
     });
 });
 
-// EDIT CAMPGROUND ROUTE
+// EDIT BABA ROUTE
 router.get("/:id/edit", middleware.checkBabaOwnership, function(req, res){
     Baba.findById(req.params.id, function(err, foundBaba){
         res.render("babas/edit", {baba: foundBaba});
     });
 });
 
-// UPDATE CAMPGROUND ROUTE
+// UPDATE BABA ROUTE
 router.put("/:id",middleware.checkBabaOwnership, function(req, res){
     // find and update the correct baba
     Baba.findByIdAndUpdate(req.params.id, req.body.baba, function(err, updatedBaba){
@@ -81,7 +82,7 @@ router.put("/:id",middleware.checkBabaOwnership, function(req, res){
     });
 });
 
-// DESTROY CAMPGROUND ROUTE
+// DESTROY BABA ROUTE
 router.delete("/:id",middleware.checkBabaOwnership, function(req, res){
    Baba.findByIdAndRemove(req.params.id, function(err){
       if(err){

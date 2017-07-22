@@ -18,6 +18,12 @@ var babaSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref: "Comment"
       }
+   ],
+    players: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "Player"
+      }
    ]
 });
 
