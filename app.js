@@ -50,6 +50,6 @@ app.use("/babas/:id/comments", commentRoutes);
 app.use("/babas/:id/players", playerRoutes);
 
 
-app.listen(3000, "192.168.25.230", function(){
+app.listen(3000, "127.0.0.1", function(){
    console.log("Servidor Baba Manager iniciado!");
 });

@@ -15,13 +15,32 @@
                     <% if(currentUser && baba.author.id.equals(currentUser._id)){ %>
                         <a class="btn btn-xs btn-success" href="/babas/<%= baba._id %>/edit">Gerenciar</a>
                         <a class="btn btn-xs btn-warning" href="/babas/<%= baba._id %>/edit">Edit</a>
-                        <form id="delete-form" action="/babas/<%= baba._id %>?_method=DELETE" method="POST">
+                        <form class="delete-form" action="/babas/<%= baba._id %>?_method=DELETE" method="POST">
                             <button class="btn btn-xs btn-danger">Delete</button>
                         </form>
                     <% }%>
                 </div>
             </div>
             <div class="well">
+                <div class="text-center">
+                    <% baba.players.forEach(function(player){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= player.author.username %></strong>                            
+                            <p>
+                                
+                            </p>
+                        <% if(currentUser && player.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning" 
+                               href="/babas/<%=baba._id %>/players/<%=player._id %>/edit">Edit</a>
+                            <form class="delete-form" action="/babas/<%=baba._id %>/players/<%=player._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+                </div>
                 <div class="text-center">
                     <a class="btn btn-success" href="/babas/<%= baba._id %>/players/new">Entrar no Baba</a><br>
                 </div>
@@ -45,7 +64,7 @@
                         <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
                             <a class="btn btn-xs btn-warning" 
                                href="/babas/<%=baba._id %>/comments/<%=comment._id %>/edit">Edit</a>
-                            <form id="delete-form" action="/babas/<%=baba._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                            <form class="delete-form" action="/babas/<%=baba._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
                                 <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                             </form>
                         <% } %>

@@ -1,5 +1,6 @@
 var Baba = require("../models/baba");
 var Comment = require("../models/comment");
+var Player = require("../models/player");
 
 // all the middleare goes here
 var middlewareObj = {};

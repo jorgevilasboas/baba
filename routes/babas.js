@@ -50,7 +50,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.get("/:id", function(req, res){
     //find the baba with provided ID
     
-    Baba.findById(req.params.id).populate("comments").exec(function(err, foundBaba){
+    Baba.findById(req.params.id).populate("comments").populate("players").exec(function(err, foundBaba){
         if(err){
             console.log(err);
         } else {                        
