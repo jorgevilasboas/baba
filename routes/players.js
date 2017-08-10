@@ -25,23 +25,33 @@ router.post("/",middleware.isLoggedIn,function(req, res){
            console.log(err);
            res.redirect("/babas");
        } else {
-        Player.create(req.body.player, function(err, player){
-           if(err){
-               req.flash("error", "Something went wrong");
-               console.log(err);
+           var existe = false;
+           Player.find
+
+           //for 
+           if (!existe) {
+               Player.create(req.body.player, function(err, player){
+                   if(err){
+                       req.flash("error", "Something went wrong");
+                       console.log(err);
+                   } else {
+                       //add username and id to player
+                        player.author.id = req.user._id;
+                        player.author.username = req.user.username;
+                        //save player
+                        player.save();
+                        baba.players.push(player);
+                        baba.save();
+                        console.log(player);
+                        req.flash("success", "Successfully added player");
+                        res.redirect('/babas/' + baba._id);
+                    }
+                });
            } else {
-               //add username and id to player
-               player.author.id = req.user._id;
-               player.author.username = req.user.username;
-               //save player
-               player.save();
-               baba.players.push(player);
-               baba.save();
-               console.log(player);
-               req.flash("success", "Successfully added player");
+               req.flash("success", "Jogador já cadastrado no baba!");
                res.redirect('/babas/' + baba._id);
            }
-        });
+        
        }
    });
 });

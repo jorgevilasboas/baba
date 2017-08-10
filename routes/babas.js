@@ -53,8 +53,9 @@ router.get("/:id", function(req, res){
     Baba.findById(req.params.id).populate("comments").populate("players").exec(function(err, foundBaba){
         if(err){
             console.log(err);
-        } else {                        
-            console.log(foundBaba)
+        } else {            
+            let myJSON = JSON.stringify(foundBaba.players);
+            console.dir(myJSON);
             //render show template with that baba
             res.render("babas/show", {baba: foundBaba});            
         }
